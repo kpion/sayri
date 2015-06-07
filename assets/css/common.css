@@ -1,0 +1,12 @@
+.clear{
+	clear:both;
+}
+
+.cform .row{
+	margin-bottom:10px;
+}
+.cform label{
+	width:100px;
+	display:inline-block;
+}
+

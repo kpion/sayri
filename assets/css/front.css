@@ -1,0 +1,43 @@
+body{
+	font-family:arial;
+	font-size:13px;
+	color:#444;
+}
+a{
+	text-decoration: none;
+}
+.page{
+	margin-left:10px;
+	margin-right:10px;
+}
+
+header{
+	background-color:#eaeaea;
+	margin-bottom:10px;
+}
+
+footer{
+	border-top:1px solid #ccc;
+	margin-top:50px;
+	padding-top:10px;
+}
+
+
+.message,.error{
+	border:1px solid #ccc;
+	padding:10px;
+	margin:10px;
+	color:white;
+}
+
+.message a,.error a{
+	color:white;
+}
+
+.message{
+	background-color:#00a;
+}
+
+.error{
+	background-color:#a00;
+}
