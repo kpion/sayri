@@ -20,7 +20,7 @@ require_once($frameworkPath.'core/App.php');
 require_once($frameworkPath.'core/Config.php');
 require_once($frameworkPath.'core/Input.php');
 require_once($frameworkPath.'core/Url.php');
-require_once($frameworkPath.'core/Routes.php');
+require_once($frameworkPath.'core/Request.php');
 require_once($frameworkPath.'core/View.php');
 //App::$input=new \system\Input();
 //echo App::$input->get('blah');
@@ -30,26 +30,10 @@ $dbConfig=\Db::getConfig('default');
 //var_dump($dbConfig);
 \App::$db=new Db($dbConfig['dsn'],$dbConfig['user'],$dbConfig['password']);
 
-$routes=Config::getFile('routes');
-
-
-
-
-$panels=array();
-
-$controllerName=empty($uriSegments[1])?$routes['defaultController']:ucfirst($uriSegments[1]).'Controller';
-$controllerMethod=empty($uriSegments[2])?'actionIndex':'action'.ucfirst($uriSegments[2]);
-$controllerMethodParams=[];
-for($n=3;$n<count($uriSegments);$n++){
-	if(empty($uriSegments[$n]))
-		break;
-	$controllerMethodParams[]=$uriSegments[$n];
-}
-require_once($appPath.'controllers/'.$controllerName.'.php');
-$controllerClass=$controllerName;
+require_once($appPath.'controllers/'.Request::getController().'.php');
+$controllerClass=Request::getController();
 $controller=new $controllerClass();
 //$controller->$controllerMethod(...['blah']);//php 5.6
-call_user_func_array(array($controller, $controllerMethod), $controllerMethodParams);
-//echo 'afd';
+call_user_func_array(array($controller, Request::getMethod()), Request::getParameters());
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 namespace app\core;
-class AdminController extends BaseController{
+class AdminController extends \app\core\BaseController{
 	public function __construct(){
 		parent::__construct();
 	}

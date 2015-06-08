@@ -7,7 +7,10 @@
  */
 
 $routes=array(
-	'defaultController'=>'HomepageController',
+	''=>'homepage',//default controller for front
+	'admin'=>'adminHomepage',//default controller for admin (that is when user enters /admin)
+	'admin/(:any)'=>'adminHomepage/$1',
+	'blah/(:any)'=>'tests/index/$1',
 );
 
 return $routes;
