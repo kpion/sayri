@@ -1,7 +1,7 @@
 <?php
 $config=[
 	'default'=>[
-		'dsn'=>'mysql:host=localhost;dbname=calendar',
+		'dsn'=>'mysql:host=localhost;dbname=foundation',
 		'user'=>'root',
 		'password'=>'',
 	],

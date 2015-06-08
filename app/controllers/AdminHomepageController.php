@@ -6,8 +6,5 @@
  * and open the template in the editor.
  */
 
-$routes=array(
-	'defaultController'=>'HomepageController',
-);
-
-return $routes;
+class AdminHomepageController extends \app\core\AdminController{
+}

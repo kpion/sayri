@@ -20,8 +20,8 @@ require_once($frameworkPath.'core/App.php');
 require_once($frameworkPath.'core/Config.php');
 require_once($frameworkPath.'core/Input.php');
 require_once($frameworkPath.'core/Url.php');
-
-
+require_once($frameworkPath.'core/Routes.php');
+require_once($frameworkPath.'core/View.php');
 //App::$input=new \system\Input();
 //echo App::$input->get('blah');
 //require_once($appPath.'core/Controller.php');
@@ -29,8 +29,14 @@ require_once($frameworkPath.'core/Url.php');
 $dbConfig=\Db::getConfig('default');
 //var_dump($dbConfig);
 \App::$db=new Db($dbConfig['dsn'],$dbConfig['user'],$dbConfig['password']);
-require_once($appPath.'config/Routes.php');
-require_once($frameworkPath.'core/View.php');
+
+$routes=Config::getFile('routes');
+
+
+
+
+$panels=array();
+
 $controllerName=empty($uriSegments[1])?$routes['defaultController']:ucfirst($uriSegments[1]).'Controller';
 $controllerMethod=empty($uriSegments[2])?'actionIndex':'action'.ucfirst($uriSegments[2]);
 $controllerMethodParams=[];
