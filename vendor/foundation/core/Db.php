@@ -25,8 +25,8 @@ class Db{
 			return;
 		};
 		self::$initialized=true;
-		global $appPath;		
-		self::$configs=require_once($appPath."config/Db.php");
+		//self::$configs=require_once($appPath."config/Db.php");
+		self::$configs=Config::getFile('db');
 	}
 	
 	public function connect($dsn,$user,$password){

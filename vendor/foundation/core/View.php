@@ -1,11 +1,11 @@
 <?php
 namespace system;
+use \App;
 class View{
 	public static function render($file,$data=[],$return=false){
-		global $appPath;
 		extract($data);
 		ob_start();
-		include($appPath.'views/'.$file.'.php');
+		include(App::$appDir.'views/'.$file.'.php');
 		// Return the file data if requested
 		if ($return)
 		{

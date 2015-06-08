@@ -10,11 +10,10 @@ class Config{
 			return;
 		};
 		self::$initialized=true;
-		global $appPath;
-		$autoload=require_once($appPath.'config/Autoload.php');	
+		$autoload=require_once(App::$appDir.'config/Autoload.php');	
 		foreach($autoload as $al){
 			$alUcFirst=ucfirst($al);
-			self::$configs[$al]=require_once($appPath."config/{$alUcFirst}.php");	
+			self::$configs[$al]=require_once(App::$appDir."config/{$alUcFirst}.php");	
 		}
 		
 	}	
