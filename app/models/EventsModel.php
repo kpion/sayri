@@ -1,5 +1,8 @@
 <?php
 namespace app\models;
+/**
+ * Model zdarzeń, pobieranie, dodawanie etc.
+ */
 class EventsModel extends \app\core\Model{
 	
 	public function __construct(){

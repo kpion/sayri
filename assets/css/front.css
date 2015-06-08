@@ -32,6 +32,7 @@ footer{
 
 .message a,.error a{
 	color:white;
+	text-decoration:underline;
 }
 
 .message{

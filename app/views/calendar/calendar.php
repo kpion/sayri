@@ -41,7 +41,8 @@ $bu=Url::base();
 	}
 	echo "</select>";
 	?>
-	<button class='pure-button pure-button-primary submit'>Pokaż</button>
+	<!--<button class='pure-button pure-button-primary submit'>Pokaż</button>-->
+	<span class='info'></span>
 </form>
 <div class="calendar">
 	<?php

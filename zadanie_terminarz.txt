@@ -1,0 +1,15 @@
+Terminarz jest oparty na moim mini-frameworku "Foundation".
+
+Projekt można podejrzeć na http://konradp.com/projects/calendar/
+
+Instalacja:
+Po skopiowaniu plików, trzeba zaimportować do bazy danych dwie tabelki (są w pliku calendar.sql),
+oraz w pliku app/config/Db.php ustawić odpowiednie dane dostępowe do bazy danych.
+
+Wszystko jest ajaxowo, za wyjątkiem przechodzenia do innej daty/użytkownika
+
+Większość kodu dot. terminarza jest w plikach:
+ app/controllers/HomepageConroller.php
+ app/models/EventsModel.php
+ assets/js/calendar.js
+

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Logowanie i wylogowywanie użytkowników
+ */
 class UsersController extends app\core\FrontController{
 	
 	/**

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Kontroler odpowiedzialny za stronę główną, w tym przypadku za terminarz.
+ */
 class HomepageController extends \app\core\FrontController{
 	private $mevents=null;
 	
@@ -14,7 +16,8 @@ class HomepageController extends \app\core\FrontController{
 		$this->addCss(Url::base('assets/js/datetimepicker/jquery.datetimepicker.css'));
 		$this->mevents=new app\models\EventsModel();
 		if(!User::is()){
-			$this->error('Musisz się zalogować',true);
+			$bu=Url::base();
+			$this->error("Musisz się <a href='{$bu}users/login'>zalogować</a>",true);
 			die();
 		}
 	}

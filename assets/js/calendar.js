@@ -1,4 +1,14 @@
+/**
+ * Wszystko co dotyczy obsługi kalendarza, używane przez widok calendar/calendar.php
+ * @param {type} from
+ * 
+ * @param {type} userId
+ * @returns {Calendar}
+ */
 function Calendar(from,userId){
+	/**
+	 * Pobranie eventów, w callbacku wyląduje JSON
+	 */
 	this.getEvents=function(userId,from,callback){
 		$.post(baseUrl+"homepage/ajax",{'action':'getEvents','userId':userId,'from':from},function(d){
 			var data = $.parseJSON(d);
@@ -12,10 +22,16 @@ function Calendar(from,userId){
 			callback(data.events);
 		});
 	}
+	/**
+	 * Czyszczenie wszystkich eventów
+	 */
 	this.clearEvents=function(){
 		$('.calendar .day .event').remove();
 	}
-	
+
+	/**
+	 * Wyświetlenie podanych eventów, tzn. wypełnienie divów .day
+	 */
 	this.displayEvents=function(events){
 		$.each(events,function(){
 			var dateFrom=this.fromDate;
@@ -29,7 +45,10 @@ function Calendar(from,userId){
 			//$('#'+'event'+this.id).draggable();
 		});
 	};
-	
+
+	/**
+	 * Wszystkie operacje w jednym - pobranie i wyświetlenie eventów
+	 */
 	this.getAndDisplayEvents=function(userId,from,callback){
 		var calendar=this;
 		this.getEvents(userId,from,function(events){
@@ -39,6 +58,9 @@ function Calendar(from,userId){
 		});
 	}
 	
+	/**
+	 * Dodanie lub edycja istniejącego eventu
+	 */
 	this.addOrUpdate=function(data,callback){
 		$.post(baseUrl+"homepage/ajax",{'action':'addOrUpdate','data':data},function(d){
 			var data = $.parseJSON(d);
@@ -52,7 +74,10 @@ function Calendar(from,userId){
 			callback();
 		});
 	};
-	
+
+	/**
+	 * Usunięcie eventu
+	 */
 	this.delete=function(id,callback){
 		$.post(baseUrl+"homepage/ajax",{'action':'delete','id':id},function(d){
 			var data = $.parseJSON(d);
@@ -66,7 +91,9 @@ function Calendar(from,userId){
 			callback();
 		});
 	}
-	
+	/**
+	 * Inicjalizacja
+	 */
 	this.init=function(){
 		var calendar=this;
 		calendar.getAndDisplayEvents(userId,from,function(events){
@@ -145,7 +172,8 @@ function Calendar(from,userId){
 			});
 
 
-			$('.dataSelector .submit').click(function(){
+			$('.dataSelector select').change(function(){
+				$(this).closest('.dataSelector').find('.info').text('Czekaj...');
 				var year=$(this).closest('.dataSelector').find('.year').val();
 				var month=$(this).closest('.dataSelector').find('.month').val();
 				if(month<10)

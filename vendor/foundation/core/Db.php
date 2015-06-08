@@ -34,7 +34,7 @@ class Db{
 		try{
 		$this->pdo=new PDO($dsn, $user, $password,[PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 		}catch(PDOException $e){
-			echo 'Can\'t connect to database';die();
+			echo 'Can\'t connect to database, please modify app/config/Db.php file';die();
 		}
 	}
 	
