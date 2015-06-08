@@ -1,6 +1,6 @@
 <?php
 $config=[
-	'config','db','routes'
+	'config','db','routes','panels'
 ];
 
 return $config;

@@ -9,4 +9,14 @@ class App{
 	 * @var \Db 
 	 */
 	static public $db;
+	
+	static public function abort404($additonalMessage='',$viewPage='errors/404'){
+		header("HTTP/1.0 404 Not Found");
+		system\View::render($viewPage,['message'=>$additonalMessage]);
+		die();
+	}
+	
+	static public function run(){
+		
+	}
 }

@@ -4,8 +4,7 @@ error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', 'On');
 
 session_start();
-$uriSegments=$_SERVER['QUERY_STRING'];
-$uriSegments=explode('/',$uriSegments);
+
 
 $appPath='app/';
 $projectFullPath=str_replace('\\','/',__DIR__).'/';
@@ -30,10 +29,19 @@ $dbConfig=\Db::getConfig('default');
 //var_dump($dbConfig);
 \App::$db=new Db($dbConfig['dsn'],$dbConfig['user'],$dbConfig['password']);
 
-require_once($appPath.'controllers/'.Request::getController().'.php');
 $controllerClass=Request::getController();
-$controller=new $controllerClass();
-//$controller->$controllerMethod(...['blah']);//php 5.6
-call_user_func_array(array($controller, Request::getMethod()), Request::getParameters());
+$show404=false;
+$controllerFile=$appPath.'controllers/'.$controllerClass.'.php';
+if(file_exists($controllerFile)){
+	require_once($controllerFile);
+	$controller=new $controllerClass();
+}
+$controllerMethod=Request::getMethod();
+if(empty($controller) || !method_exists($controller,$controllerMethod)){
+	App::abort404('Controller: '.$controllerClass.' method: '.$controllerMethod);
+}
+
+
+call_user_func_array(array($controller, $controllerMethod), Request::getParameters());
 
 ?>

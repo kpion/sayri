@@ -5,20 +5,37 @@
 class Request{
 	private static $initialized=false;
 	private static $routes=[];
+	private static $panels=[];
 	//this will be string containing a controller/arguments
 	private static $resolvedUrl='';
 	private static $controller;//after resolving with config/Routes.php
 	private static $method;//after resolving with config/Routes.php
 	private static $parameters;//after resolving with config/Routes.php
-	
+	private static $segments;//after resolving with config/Routes.php, contains url's segments, starting with controller name
 	public static function initialize(){
 		if(self::$initialized)
 			return;
 		self::$initialized=true;
 		self::$routes=Config::getFile('routes');
+		self::$panels=Config::getFile('panels');
 		//resolving:
 		$uri=$_SERVER['QUERY_STRING'];
 		$uri=trim($uri,'/');
+		//panels
+		$controllerPrefix='';
+		$panelOffset=0;
+		$uriSegments0=explode('/',$uri);		
+		$firstSegment=empty($uriSegments0[0])?'':$uriSegments0[0];
+		$defaultController='';
+		foreach(self::$panels as $panelName=>$panelData){
+			if($firstSegment==$panelName){
+				$controllerPrefix=ucfirst($panelData['controllerPrefix']);
+				$defaultController=ucfirst($panelData['defaultController']);
+				$panelOffset=1;
+				break;
+			}
+		}
+
 		foreach(self::$routes as $key=>&$val){
 			// Convert our wild-cards to reg expr.
 			if(is_array($val))
@@ -31,12 +48,19 @@ class Request{
 		}
 		self::$resolvedUrl=$uri;
 		//echo 'uri after resolving: '.$uri.'<br>';
-		$uriSegments=explode('/',$uri);		
-		//self::$controller=empty($uriSegments[0])?ucfirst(self::$routes['defaults']['front']).'Controller':ucfirst($uriSegments[0]).'Controller';
-		self::$controller=ucfirst($uriSegments[0]).'Controller';
-		self::$method=empty($uriSegments[1])?'actionIndex':'action'.ucfirst($uriSegments[1]);
+		$uriSegments=self::$segments=explode('/',$uri);		
+		//self::$controller=$controllerPrefix.ucfirst($uriSegments[0+$panelOffset]).'Controller';
+		$controller=$controllerPrefix;
+		if(!empty($uriSegments[0+$panelOffset]))
+			$controller.=ucfirst($uriSegments[0+$panelOffset]);
+		else
+			$controller.=$defaultController;
+		$controller.='Controller';
+		self::$controller=$controller;
+		
+		self::$method=empty($uriSegments[1+$panelOffset])?'actionIndex':'action'.ucfirst($uriSegments[1+$panelOffset]);
 		self::$parameters=[];
-		for($n=2;$n<count($uriSegments);$n++){
+		for($n=2+$panelOffset;$n<count($uriSegments);$n++){
 			if(empty($uriSegments[$n]))
 				break;
 			self::$parameters[]=$uriSegments[$n];
@@ -51,6 +75,18 @@ class Request{
 	public static function getRoutes(){
 		self::initialize();
 		return self::$routes;
+	}
+	
+	/**
+	 * returns a URL segment (after resolving with config/Routes.php) starting with controllers name
+	 * @param type $index
+	 * @return string
+	 */
+	public static function getSegment($index){
+		self::initialize();
+		if(!empty(self::$segments[$index]))
+			return self::$segments[$index];
+		return '';
 	}
 	
 	public static function getController(){

@@ -23,7 +23,6 @@
 		<ul class="pure-menu-list">
 			<li class="pure-menu-item"><a class="pure-menu-link" href='<?=Url::base('users/login')?>'>Zaloguj się</a></li>
 			<li class="pure-menu-item"><a class="pure-menu-link" href='<?=Url::base('users/logout')?>'>Wyloguj się</a></li>
-			<li class="pure-menu-item"><a class="pure-menu-link" href='<?=Url::base('homepage/index')?>'>Kalendarz</a></li>
 		</ul>
 	</header>	
 	<body>
