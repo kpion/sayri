@@ -1,0 +1,1 @@
+<p>This is admin's homepage view</p>

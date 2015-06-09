@@ -1,5 +1,5 @@
 <?php
-//namespace system;
+namespace foundation;
 /**
  * Wyjątkowo nie w namespace app by można było po prostu napisać App::coś_tam
  */
@@ -11,6 +11,8 @@ class App{
 	static public $db;
 	static public $projectDir;
 	static public $appDir;
+	static public $frameworkDir;
+	static public $classAliases;
 	static public function abort404($additonalMessage='',$viewPage='errors/404'){
 		header("HTTP/1.0 404 Not Found");
 		system\View::render($viewPage,['message'=>$additonalMessage]);
@@ -24,23 +26,32 @@ class App{
 		$projectDir=str_replace('\\','/',$projectDir);
 		self::$projectDir=$projectDir;
 		self::$appDir=$projectDir.'app/';
-		
-				
-		$frameworkPath='vendor/foundation/';
+		self::$frameworkDir=$projectDir.'vendor/foundation/foundation/';
+		self::$classAliases=require_once(self::$frameworkDir.'config/ClassAliases.php');		
+		//$frameworkPath='vendor/foundation/foundation/';
 		foreach(
 				['core/Autoload','core/ArrayUtils','core/Db','core/Session','core/User',
 				'core/Config','core/Input','core/Url','core/Request','core/View'
 			] as $frameworkFile){
-			require_once($frameworkPath.$frameworkFile.'.php');
+			require_once(self::$frameworkDir.$frameworkFile.'.php');
 		}
+		new \foundation\Autoload();
+		//testy:
+		//$x=new foundation\Tests();
+		//
 		//App::$input=new \system\Input();
 		//echo App::$input->get('blah');
 		//require_once($appPath.'core/Controller.php');
 		//database
-		$dbConfig=\Db::getConfig('default');
+		$dbConfig=\foundation\Db::getConfig('default');
 		//var_dump($dbConfig);
 		self::$db=new Db($dbConfig['dsn'],$dbConfig['user'],$dbConfig['password']);
-
+		//class aliases, so we can simply use "App" instead of foundation\App
+		foreach(self::$classAliases as $class=>$alias){
+			//class_alias('foundation\Url','Url');
+			class_alias($alias,$class);
+		}
+		//load the controller
 		$controllerClass=Request::getController();
 		$controllerFile=self::$appDir.'controllers/'.$controllerClass.'.php';
 		if(file_exists($controllerFile)){
@@ -52,7 +63,7 @@ class App{
 			self::abort404('Controller: '.$controllerClass.' method: '.$controllerMethod);
 		}
 
-
+		
 		call_user_func_array(array($controller, $controllerMethod), Request::getParameters());		
 		
 	}

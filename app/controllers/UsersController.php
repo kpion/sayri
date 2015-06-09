@@ -1,4 +1,5 @@
 <?php
+use app\models\UsersModel;
 /**
  * Logowanie i wylogowywanie użytkowników
  */
@@ -8,7 +9,7 @@ class UsersController extends app\core\FrontController{
 	 * Logowanie, widok i realizacja
 	 */
 	public function actionLogin(){
-		$musers=new app\models\UsersModel();
+		$musers=new UsersModel();
 		//echo \Config::get('test');
 		if(Input::post('submit')!=''){
 			if(User::login(Input::post('login'),Input::post('password'))){

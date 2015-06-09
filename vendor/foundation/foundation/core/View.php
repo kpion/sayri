@@ -1,6 +1,5 @@
 <?php
-namespace system;
-use \App;
+namespace foundation;
 class View{
 	public static function render($file,$data=[],$return=false){
 		extract($data);

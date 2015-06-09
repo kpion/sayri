@@ -1,5 +1,5 @@
 <?php
-namespace system;
+namespace foundation;
 
 class BaseController{
 	private $viewData=[];
@@ -10,20 +10,12 @@ class BaseController{
 		
 	}
 	
-	public function isAdminMode(){
-		return false;
-	}
-	
-	public function isFrontMode(){
-		return !$this->isAdminMode();
-	}
-	
 	public function render($file,$data=[],$return=false,$templatesDir=''){
 		$this->setViewData('templateJsFiles', $this->jsFiles);
 		$this->setViewData('templateCssFiles', $this->cssFiles);
 		$data=array_merge($this->viewData,$data);
 		if(empty($templatesDir)){
-			$templatesDir=$this->isAdminMode()?'templates/admin/':'templates/front/';
+			$templatesDir='templates/'.Request::getPanel().'/';
 		}
 		return 
 			View::render($templatesDir.'header',$data,$return).

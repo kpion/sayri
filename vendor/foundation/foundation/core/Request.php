@@ -1,13 +1,17 @@
 <?php
+namespace foundation;
 /**
  * All about URL request - processes config/Routes.php file to resolve controller, method and parameters
  */
 class Request{
 	private static $initialized=false;
 	private static $routes=[];
+	//panels available in config/Panels.php
 	private static $panels=[];
 	//this will be string containing a controller/arguments
 	private static $resolvedUrl='';
+	//panel name - empty if there is no panel, or, for example 'admin'
+	private static $panel;
 	private static $controller;//after resolving with config/Routes.php
 	private static $method;//after resolving with config/Routes.php
 	private static $parameters;//after resolving with config/Routes.php
@@ -29,6 +33,7 @@ class Request{
 		$defaultController='';
 		foreach(self::$panels as $panelName=>$panelData){
 			if($firstSegment==$panelName){
+				self::$panel=$panelName;
 				$controllerPrefix=ucfirst($panelData['controllerPrefix']);
 				$defaultController=ucfirst($panelData['defaultController']);
 				$panelOffset=1;
@@ -76,7 +81,10 @@ class Request{
 		self::initialize();
 		return self::$routes;
 	}
-	
+	public static function getPanel(){
+		self::initialize();
+		return self::$panel;
+	}
 	/**
 	 * returns a URL segment (after resolving with config/Routes.php) starting with controllers name
 	 * @param type $index

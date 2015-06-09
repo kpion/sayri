@@ -1,4 +1,5 @@
 <?php
+namespace foundation;
 /**
  * @todo: In the future store the session in database
  */

@@ -1,5 +1,5 @@
 <?php
-
+namespace foundation;
 class Db{
 	public $pdo=null;
 	//result of $->query(), ->exec and others;
@@ -32,7 +32,7 @@ class Db{
 	public function connect($dsn,$user,$password){
 		self::initialize();
 		try{
-		$this->pdo=new PDO($dsn, $user, $password,[PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+		$this->pdo=new \PDO($dsn, $user, $password,[\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]);
 		}catch(PDOException $e){
 			echo 'Can\'t connect to database, please modify app/config/Db.php file';die();
 		}

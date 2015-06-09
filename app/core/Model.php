@@ -6,7 +6,7 @@ namespace app\core;
  * and open the template in the editor.
  */
 
-class Model extends \system\Model{
+class Model extends \foundation\Model{
 	public function __construct(){
 		}
 }

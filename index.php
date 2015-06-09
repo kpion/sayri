@@ -1,5 +1,7 @@
 <?php
-//phpinfo();die();
-require_once('vendor/foundation/core/App.php');
-App::run(__DIR__.'/');
+require_once('vendor/foundation/foundation/core/App.php');
+//class_alias('vendor\foundation\foundation\core\App','App');
+\foundation\App::run(__DIR__.'/');
+
+//class_alias('vendor\foundation\core\Tests','Tests');
 ?>

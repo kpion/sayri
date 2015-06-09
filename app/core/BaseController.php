@@ -6,7 +6,7 @@ namespace app\core;
  * and open the template in the editor.
  */
 
-class BaseController extends \system\BaseController{
+class BaseController extends \foundation\BaseController{
 	public function __construct(){
 		parent::__construct();
 	}
