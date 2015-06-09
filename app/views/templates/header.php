@@ -15,7 +15,7 @@
 		<?php foreach($templateCssFiles as $file) echo "<link rel='stylesheet' type='text/css' href='$file'>";?>
 		<?php foreach($templateJsFiles as $file) echo "<script type='text/javascript' src='$file'></script>";?>	
 		<script>
-			var curUserId=<?=json_encode(User::cur()['id'])?>;
+			var curUserId=<?=Auth::cur()['id']?>;
 			var baseUrl='<?=Url::base()?>';
 		</script>
 	</head>

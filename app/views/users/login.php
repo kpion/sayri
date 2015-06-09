@@ -1,7 +1,7 @@
 <p>Przykładowi userzy:</p>
 <ul>
-	<li>login: user1 hasło: user1</li>
-	<li>login: user2 hasło: user2</li>
+	<li>login: admin hasło: admin</li>
+	<li>login: mod1 hasło: mod1</li>
 </ul>
 <form method='post' class="pure-form pure-form-stacked">
 	<fieldset>

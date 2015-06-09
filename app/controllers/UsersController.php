@@ -12,7 +12,7 @@ class UsersController extends app\core\FrontController{
 		$musers=new UsersModel();
 		//echo \Config::get('test');
 		if(Input::post('submit')!=''){
-			if(User::login(Input::post('login'),Input::post('password'))){
+			if(Auth::login(Input::post('login'),Input::post('password'))){
 				//$this->message('Logowanie powiodło się');
 				Url::redirect('homepage/index');
 			}else{
@@ -26,7 +26,7 @@ class UsersController extends app\core\FrontController{
 	 * Wylogowanie plus przekierowanie na stronę główną
 	 */
 	public function actionLogout(){
-		\User::logout();
+		\Auth::logout();
 		Url::redirect('');
 	}
 	
@@ -34,9 +34,9 @@ class UsersController extends app\core\FrontController{
 	 * To tylko testy
 	 */
 	public function actionTests(){
-		\User::login('user1','user1');
-		\User::logout();
-		echo 'curUser:';var_dump(\User::cur());echo '<br>';
+		\Auth::login('user1','user1');
+		\Auth::logout();
+		echo 'curUser:';var_dump(\Auth::cur());echo '<br>';
 		\App::$db->insert('users',['firstName'=>'Konrad2','age'=>10]);
 		$test=\App::$db->get('users',array('id'=>1))->resultOne();
 		echo 'user1:';var_dump($test);echo '<br>';

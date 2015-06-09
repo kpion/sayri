@@ -1,5 +1,6 @@
 			<footer>
-				Zalogowany jako: <?=User::cur()['login']?User::cur()['login']:'niezalogowany';?>
+				Zalogowany jako: <?=Auth::cur()['login']?Auth::cur()['login']:'niezalogowany';?>
+				<?//Utils::printr(Auth::cur()['roles'])?>
 			</footer>
 		</div><!--end of div class='page'-->
 	</body>

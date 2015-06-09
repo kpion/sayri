@@ -6,8 +6,13 @@ class BaseController{
 	private $jsFiles=[];
 	private $cssFiles=[];
 	
+	public function access(){
+		return [];
+	}
+	
 	public function __construct(){
-		
+		//$access
+		//echo $this->access();
 	}
 	
 	public function render($file,$data=[],$return=false,$templatesDir=''){

@@ -12,7 +12,9 @@ $classAliases=[
 	'Session'=>'foundation\Session',
 	'Tests'=>'foundation\Tests',
 	'Url'=>'foundation\Url',
-	'User'=>'foundation\User',
+	'Auth'=>'foundation\Auth',
+	'Users'=>'foundation\Users',
 	'View'=>'foundation\View',
+	'Utils'=>'foundation\Utils',
 ];
 return $classAliases;
