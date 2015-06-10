@@ -16,7 +16,9 @@ class BaseController{
 	protected $accessRules=[];
 	
 	public function __construct(){
-		$this->hasAccess();
+		if(!$this->hasAccess()){
+			$this->error('no access');
+		}
 	}
 	
 	protected function hasAccess(){
@@ -34,7 +36,6 @@ class BaseController{
 				$roleMatches=true;
 			if(!$roleMatches)
 				continue;
-			echo 'role matches<br>';
 			//ok, so we have rules for this role, maybe current controller is allowed?
 			foreach($controllers as $controller){
 				//* means any controller
@@ -50,11 +51,6 @@ class BaseController{
 			if($hasAccess)
 				break;
 		}
-		if($hasAccess)
-			echo 'hasAccess';
-		else
-			echo 'doesn\'t have access';
-		echo '<br>';
 		return $hasAccess;
 	}
 	/**
