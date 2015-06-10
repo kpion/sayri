@@ -21,4 +21,11 @@ class Utils{
 		print_r($var);
 		echo '</pre>';
 	}	
+	
+	public static function vardump($var){
+		echo '<pre>';
+		var_dump($var);
+		echo '</pre>';
+	}	
+	
 }

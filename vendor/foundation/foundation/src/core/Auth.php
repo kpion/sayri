@@ -75,7 +75,7 @@ class Auth{
 	
 	public static function logout(){
 		self::$cur=false;
-		\Session::remove('curUser');
+		Session::remove('curUser');
 	}
 	
 	
