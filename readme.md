@@ -1,4 +1,11 @@
 # Foundation
-A very simple MVC Framework and a CMS for programmers (in plans:))
+
+A dead simple PHP MVC Framework. In progress.
+
+# Features
+  - MVC architecture
+  - Built-in authentication
+  - More to come
+
 
 https://github.com/konradpapala/foundation
