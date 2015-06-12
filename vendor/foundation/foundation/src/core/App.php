@@ -15,7 +15,7 @@ class App{
 	static public $classAliases;
 	static public function abort404($additonalMessage='',$viewPage='errors/404'){
 		header("HTTP/1.0 404 Not Found");
-		system\View::render($viewPage,['message'=>$additonalMessage]);
+		echo View::get($viewPage,['message'=>$additonalMessage]);
 		die();
 	}
 	
@@ -65,15 +65,15 @@ class App{
 		}
 		$controllerMethod=Request::getMethod();
 		if(empty($controller) || !method_exists($controller,$controllerMethod)){
-			self::abort404('Controller: '.$controllerClass.' method: '.$controllerMethod);
+			static::abort404('Controller: '.$controllerClass.' method: '.$controllerMethod);
 		}
 
 		
 		$result=call_user_func_array(array($controller, $controllerMethod), Request::getParameters());		
 		if(is_a($result,'foundation\ViewBase'))
 			echo $result->getAsString();
-		else{
-			//echo 'not a view';
+		elseif (is_string($result)){
+			echo $result;
 		}
 	}
 	

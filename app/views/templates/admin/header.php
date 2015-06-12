@@ -21,7 +21,7 @@
 	</head>
 	<header class="pure-menu pure-menu-horizontal">
 		<ul class="pure-menu-list">
-			<li class="pure-menu-item"><a class="pure-menu-link" href='<?=Url::base('users/logout')?>'>Main site</a></li>
+			<li class="pure-menu-item"><a class="pure-menu-link" href='<?=Url::base('')?>'>Main site</a></li>
 			<li class="pure-menu-item"><a class="pure-menu-link" href='<?=Url::base('users/logout')?>'>Logout</a></li>
 		</ul>
 	</header>	

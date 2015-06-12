@@ -48,6 +48,11 @@ class Request{
 			if(is_callable($val))
 				$val=$val();
 			$key = str_replace(':any', '.+', str_replace(':num', '[0-9]+', $key));
+			/*
+			if(is_a($val,'foundation\ViewBase')){
+				echo $val;
+				continue;
+			}*/
 			//echo $key.$val.'<br>';
 			$uri = preg_replace('#^'.$key.'$#', $val, $uri);
 		}

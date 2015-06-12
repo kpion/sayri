@@ -6,7 +6,7 @@ class ViewBase{
 	protected $data=[];
 	public function compile ($string,$data=[]){
 		//@include command
-		$includePattern='~@include\\s\\(\\s?[\'"](.*?)[\'"]\\s?\\);?~';
+		$includePattern='~@include\\s?\\(\\s?[\'"](.*?)[\'"]\\s?\\);?~';
 		$result = preg_replace_callback(
 				$includePattern,
 				function ($matches) use ($data) {
@@ -90,6 +90,12 @@ class ViewBase{
 		return $this;
 	}
 	
+	public function dump(){
+		foreach(func_get_args() as $arg)
+			$this->data['templateDumps'][]=$arg;
+		return $this;
+	}
+	
 	public function __tostring(){
 		return $this->getAsString();
 	}	
@@ -98,7 +104,6 @@ class ViewBase{
 }
 
 class View{
-	static protected $additionalData=[];
 	static protected $viewBase=null;
 	
 	static function getViewBase(){
@@ -109,16 +114,19 @@ class View{
 	}
 	static function get($file,$data=[]){
 		$viewBase=static::getViewBase();
-		foreach(static::$additionalData as $key=>$val){
-			$viewBase->with($key,$val);
-		}
-		return $viewBase->get($file,$data);//->with('templateCssFiles',static::$cssFiles)->with('templateJsFiles',static::$jsFiles);
+		return $viewBase->get($file,$data);
 	}
 
 	public function __tostring(){
 		return static::$viewBase->getAsString();
 	}
 	
+	/**
+	 * Thanks to this, we can call View::error('something'), which is declared in ViewBase class
+	 * @param type $method
+	 * @param type $arguments
+	 * @return type
+	 */
 	public static function __callStatic($method, $arguments)
     {
 		call_user_func_array(array(static::getViewBase(), $method), $arguments);		

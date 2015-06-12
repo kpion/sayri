@@ -1,7 +1,7 @@
 <?php
 
 $classAliases=[
-	'App'=>'foundation\App',
+	'App'=>'app\core\App',
 	'ArrayUtils'=>'foundation\ArrayUtils',
 	'BaseController'=>'foundation\BaseController',
 	'Config'=>'foundation\Config',

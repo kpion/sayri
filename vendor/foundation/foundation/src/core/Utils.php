@@ -16,15 +16,17 @@ class Utils{
 		}
 		return $randomString;
 	}
-	public static function printr($var){
+	public static function print_r(){
 		echo '<pre>';
-		print_r($var);
+		foreach(func_get_args() as $arg)
+			print_r($arg);
 		echo '</pre>';
 	}	
 	
-	public static function vardump($var){
+	public static function var_dump(){
 		echo '<pre>';
-		var_dump($var);
+		foreach(func_get_args() as $arg)
+			var_dump($arg);
 		echo '</pre>';
 	}	
 	

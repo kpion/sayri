@@ -33,7 +33,7 @@
 	<body>
 		<div class="page">
 			<?php if(!empty($templateErrors)){
-				foreach($templateErrors as $err){
+				foreach($templateErrors as $templateError){
 			?>
 				<div class="error">
 					<p><?=$templateError?></p>
@@ -48,6 +48,7 @@
 				</div>
 				<?php } ?>
 			<?php } ?>
+			@include ('templates\dump');
 			<?php
 			
 			?>

@@ -1,0 +1,16 @@
+<?php
+namespace app\core;
+require_once(dirname(dirname(__DIR__)).'/vendor/foundation/foundation/src/core/App.php');
+class App extends \foundation\App{
+	public function __construct(){
+		parent::__construct();
+	}
+	/**
+	 * Here's an example of overloading an App method
+	static public function abort404($additonalMessage='',$viewPage='errors/404'){
+		header("HTTP/1.0 404 Not Found");
+		echo \foundation\View::get($viewPage,['message'=>$additonalMessage]);
+		die();
+	}	
+	 */
+}

@@ -8,5 +8,6 @@ namespace app\core;
 
 class Model extends \foundation\Model{
 	public function __construct(){
-		}
+		parent::__construct();
+	}
 }
