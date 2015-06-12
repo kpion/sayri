@@ -16,12 +16,20 @@ class BaseController{
 	protected $accessRules=[];
 	
 	public function __construct(){
+		$this->setAccess();
 		if(!$this->hasAccess()){
-			$this->error('no access');
+			//$this->error('no access',true);
+			Url::redirect('');
+			die();
 		}
 	}
 	
+	protected function setAccess(){
+		
+	}
+	
 	protected function hasAccess(){
+		//var_dump($this->accessRules);
 		if(empty($this->accessRules))
 			return true;
 		$hasAccess=false;

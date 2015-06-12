@@ -11,5 +11,7 @@ class BaseController extends \foundation\BaseController{
 		parent::__construct();
 	}
 
-	
+	protected function setAccess(){
+		parent::setAccess();
+	}
 }

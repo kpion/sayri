@@ -59,12 +59,12 @@ class Auth{
 		return self::cur()!==false;
 	}
 	
-	public static function login($login,$pass){
+	public static function login(Array $credentials){
 		$user=new Users();
-		$user->load(['login'=>$login]);
+		$user->load(['login'=>$credentials['login']]);
 		if(!$user->isLoaded())
 			return false;
-		if($user['passwordHash']!=self::generateHash($pass,$user['salt'])){
+		if($user['passwordHash']!=self::generateHash($credentials['password'],$user['salt'])){
 			return false;
 		}
 		\Session::remove('curUser');

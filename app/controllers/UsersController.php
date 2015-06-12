@@ -12,7 +12,10 @@ class UsersController extends app\core\FrontController{
 		$musers=new UsersModel();
 		//echo \Config::get('test');
 		if(Input::post('submit')!=''){
-			if(Auth::login(Input::post('login'),Input::post('password'))){
+			if(Auth::login([
+				'login'=>Input::post('login'),'password'=>Input::post('password')
+			]))
+			{
 				//$this->message('Logowanie powiodło się');
 				Url::redirect('homepage/index');
 			}else{

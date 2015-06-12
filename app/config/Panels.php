@@ -7,7 +7,7 @@ $panels=[
 		'defaultController'=>'Homepage'
 	],
 	
-	//admin panel, e.g. example.com//admin/users
+	//admin panel, e.g. example.com/admin/users
 	'admin'=>[
 		'controllerPrefix'=>'admin',
 		'defaultController'=>'Homepage'

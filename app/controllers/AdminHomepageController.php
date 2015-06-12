@@ -6,4 +6,10 @@ class AdminHomepageController extends \app\core\AdminController{
 		
 		$this->render('admin/homepage/homepage');
 	}
+	
+	protected function hasAccess(){
+		if(!parent::hasAccess())
+			return false;
+		return true;
+	}
 }
