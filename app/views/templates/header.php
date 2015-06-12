@@ -42,3 +42,6 @@
 				<?=$templateMessage?>
 			</div></p>
 			<?php } ?>
+			<?php
+			
+			?>

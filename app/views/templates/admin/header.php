@@ -37,3 +37,7 @@
 				<?=$templateMessage?>
 			</div></p>
 			<?php } ?>
+			<?php
+			echo 'test in header:'.$test;
+			?>
+			@include ('templates\admin\test')

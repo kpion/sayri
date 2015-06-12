@@ -69,7 +69,12 @@ class App{
 		}
 
 		
-		call_user_func_array(array($controller, $controllerMethod), Request::getParameters());		
+		$result=call_user_func_array(array($controller, $controllerMethod), Request::getParameters());		
+		if(is_a($result,'foundation\ViewBase'))
+			echo $result->getAsString();
+		else{
+			echo 'not a view';
+		}
 	}
 	
 	public static function tests(){

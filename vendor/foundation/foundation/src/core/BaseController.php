@@ -81,7 +81,7 @@ class BaseController{
 		return $this;
 	}
 	
-	public function render($file,$data=[],$return=false,$templatesDir=''){
+	public function getView($file,$data=[],$return=false,$templatesDir=''){
 		$this->setViewData('templateJsFiles', $this->jsFiles);
 		$this->setViewData('templateCssFiles', $this->cssFiles);
 		$data=array_merge($this->viewData,$data);
