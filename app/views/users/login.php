@@ -1,3 +1,4 @@
+@include ('templates\header');
 <p>Przykładowi userzy:</p>
 <ul>
 	<li>login: admin hasło: admin</li>
@@ -15,4 +16,5 @@
 		$('form input[name=login]').focus();
 	})
 </script>
+@include ('templates\footer');
 	

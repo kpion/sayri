@@ -12,10 +12,10 @@
 		<link rel="stylesheet" type="text/css" href="<?=Url::base()?>assets/js/jquery-ui/jquery-ui.min.css">
 				
 		<script type="text/javascript" src="<?=Url::base()?>assets/js/common.js"></script>
-		<?php foreach($templateCssFiles as $file) echo "<link rel='stylesheet' type='text/css' href='$file'>";?>
-		<?php foreach($templateJsFiles as $file) echo "<script type='text/javascript' src='$file'></script>";?>	
+		<?php if(!empty($templateCssFiles)) foreach($templateCssFiles as $file) echo "<link rel='stylesheet' type='text/css' href='$file'>";?>
+		<?php if(!empty($templateJsFiles)) foreach($templateJsFiles as $file) echo "<script type='text/javascript' src='$file'></script>";?>	
 		<script>
-			var curUserId=<?=Auth::cur()['id']?>;
+			var curUserId=<?=Auth::isLoggedIn()?Auth::cur()['id']:'0'?>;
 			var baseUrl='<?=Url::base()?>';
 		</script>
 	</head>
@@ -32,15 +32,21 @@
 	</header>	
 	<body>
 		<div class="page">
-			<?php if(!empty($templateError)){?>
-			<div class="error"><p>
-				<?=$templateError?>
-			</div></p>
+			<?php if(!empty($templateErrors)){
+				foreach($templateErrors as $err){
+			?>
+				<div class="error">
+					<p><?=$templateError?></p>
+				</div>
+				<?php } ?>
 			<?php } ?>
-			<?php if(!empty($templateMessage)){?>
-			<div class="message"><p>
-				<?=$templateMessage?>
-			</div></p>
+			<?php if(!empty($templateMessages)){
+				foreach($templateMessages as $msg){
+			?>
+				<div class="message"><p>
+					<p><?=$templateMessage?></p>
+				</div>
+				<?php } ?>
 			<?php } ?>
 			<?php
 			

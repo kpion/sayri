@@ -7,7 +7,7 @@ class HomepageController extends \app\core\FrontController{
 	}
 	
 	public function actionIndex(){
-		$this->render('homepage/index');
+		return View::get('homepage/index');
 	}
 	
 	
@@ -28,7 +28,7 @@ class HomepageController extends \app\core\FrontController{
 		$mhomePage=new app\models\HomepageModel();
 		$mhomePage->test();
 		//$test=new system\Model();
-		$this->render('homepage',['param1'=>$param1,'param2'=>$param2]);
+		return View::get('homepage',['param1'=>$param1,'param2'=>$param2]);
 	}
 }
 ?>

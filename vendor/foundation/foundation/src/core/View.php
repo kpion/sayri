@@ -3,9 +3,10 @@ namespace foundation;
 class ViewBase{
 	protected $file='';
 	protected $loaded='';
-	protected $data=null;
+	protected $data=[];
 	public function compile ($string,$data=[]){
-		$includePattern='~@include\\s\\(\\s?[\'"](.*?)[\'"]\\s?\\)~';
+		//@include command
+		$includePattern='~@include\\s\\(\\s?[\'"](.*?)[\'"]\\s?\\);?~';
 		$result = preg_replace_callback(
 				$includePattern,
 				function ($matches) use ($data) {
@@ -22,7 +23,7 @@ class ViewBase{
 	
 	public function get($file,$data=[]){
 		$this->file=$file;
-		$this->data=$data;
+		$this->data=array_merge($this->data,$data);
 		return $this;
 		/*
 		extract($data);
@@ -54,15 +55,74 @@ class ViewBase{
 		return $this->compile($this->loaded,$this->data);
 	}
 	
-	public function with($data){
+	public function with($data,$val=null){
+		if(!is_array($data))
+			$data=[$data=>$val];
 		$this->data=array_merge($this->data,$data);
 		return $this;
 	}
+	
+	public function getData(){
+		return $this->data;
+	}
+	
+	public function js($file){
+		if(stripos($file,'//')===false) 
+			$file=\Url::base().'assets/js/'.$file;		
+		$this->data['templateJsFiles'][]=$file;
+		return $this;
+	}			
+	
+	public function css($file){
+		if(stripos($file,'//')===false) 
+			$file=\Url::base().'assets/css/'.$file;		
+		$this->data['templateCssFiles'][]=$file;
+		return $this;
+	}			
+	
+	public function message($message){
+		$this->data['templateMessages'][]=$message;
+		return $this;
+	}		
+	
+	public function error($error){
+		$this->data['templateErrors'][]=$error;
+		return $this;
+	}
+	
+	public function __tostring(){
+		return $this->getAsString();
+	}	
+	
+
 }
 
 class View{
-	static function get($file,$data=[]){
-		$view=new ViewBase();
-		return $view->get($file,$data);
+	static protected $additionalData=[];
+	static protected $viewBase=null;
+	
+	static function getViewBase(){
+		if(!empty(static::$viewBase))
+			return static::$viewBase;
+		static::$viewBase=new ViewBase;
+		return static::$viewBase;
 	}
+	static function get($file,$data=[]){
+		$viewBase=static::getViewBase();
+		foreach(static::$additionalData as $key=>$val){
+			$viewBase->with($key,$val);
+		}
+		return $viewBase->get($file,$data);//->with('templateCssFiles',static::$cssFiles)->with('templateJsFiles',static::$jsFiles);
+	}
+
+	public function __tostring(){
+		return static::$viewBase->getAsString();
+	}
+	
+	public static function __callStatic($method, $arguments)
+    {
+		call_user_func_array(array(static::getViewBase(), $method), $arguments);		
+		return static::$viewBase;
+    }	
+	
 }

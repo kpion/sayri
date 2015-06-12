@@ -73,7 +73,7 @@ class App{
 		if(is_a($result,'foundation\ViewBase'))
 			echo $result->getAsString();
 		else{
-			echo 'not a view';
+			//echo 'not a view';
 		}
 	}
 	

@@ -7,7 +7,6 @@ class AdminModController extends \app\core\AdminController{
 		parent::__construct();
 	}
 	public function actionIndex($param='domyślny param'){
-		
-		$this->render('admin/mod/index');
+		return View::get('admin/mod/index');
 	}
 }

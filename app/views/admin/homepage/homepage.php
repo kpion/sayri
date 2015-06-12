@@ -3,3 +3,4 @@
 <?php
 echo 'test:'.$test;
 ?>
+@include ('templates\admin\footer')

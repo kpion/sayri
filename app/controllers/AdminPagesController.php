@@ -2,7 +2,7 @@
 
 class AdminPagesController extends \app\core\AdminController{
 	public function actionIndex(){
-		$this->render('admin/pages/adminIndex');
+		return View::get('admin/pages/adminIndex');
 	}
 	public function actionTests($param='default param'){
 		echo 'AdminPagesController - tests, param:'.$param;

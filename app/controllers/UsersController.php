@@ -22,7 +22,7 @@ class UsersController extends app\core\FrontController{
 				$this->error('Nieprawidłowy login lub hasło');
 			};
 		}
-		$this->render('users/login');
+		return View::get('users/login');
 	}
 	
 	/**
