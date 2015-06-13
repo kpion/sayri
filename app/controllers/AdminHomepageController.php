@@ -2,13 +2,14 @@
 
 class AdminHomepageController extends \app\core\AdminController{
 	
-	public function actionIndex($param='domyślny param'){
-		return View::get('admin/homepage/homepage')->with('test','test var');
+	public function actionIndex(){
+		return View::get('admin/homepage/homepage');
 	}
 	
 	protected function hasAccess(){
 		if(!parent::hasAccess())
 			return false;
+		//here we can check more conditions.
 		return true;
 	}
 }

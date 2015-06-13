@@ -43,7 +43,4 @@
 				</div>
 				<?php } ?>
 			<?php } ?>
-			<?php
-			echo 'test in header:'.$test;
-			?>
 			
