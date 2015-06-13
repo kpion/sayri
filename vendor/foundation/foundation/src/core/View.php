@@ -5,12 +5,16 @@ namespace foundation;
  */
 class ViewCompiler{
 	protected $commands=[];
-	
+	//currently parsed file
+	protected $currentFile='';
 	public function __construct(){
 		//registering standard commands
 		$this->registerCommand('include', function($params,$data){
-			//var_dump($params);
+			
 			$file=$params[0];
+			$data['parameters']=$params;
+			array_shift($data['parameters']);//we remove the 'file' parameter
+			//Utils::var_dump($data['parameters']);
 			return $this->compile($this->loadFile(App::$appDir.'views/'.$file.'.php',$data), $data);
 		});
 	}
@@ -21,20 +25,21 @@ class ViewCompiler{
 		foreach($this->commands as $commandInfo){
 			$command=$commandInfo['command'];
 			$commandCallback=$commandInfo['callback'];
-			$commandPattern="~@{$command}\s?\((,?.*?)\);?~";
+			$commandPattern="~@{$command}\s?\((,?.*)\);?~";
+			$curFile=$this->currentFile;
 			$result = preg_replace_callback(
 				$commandPattern,
-				function ($matches) use ($command,$commandCallback,$data) {
-					//echo 'match:';var_dump($matches);echo '<br>';
-					//return strtolower($matches[1]);
-					//$file=$matches[1];
-					$params = preg_split("~,(?=([^']*'[^']*')*[^']*$)~",$matches[1]);
+				function ($matches) use ($command,$commandCallback,$data,$curFile) {
+					//$params = preg_split("~,(?=([^']*'[^']*')*[^']*$)~",$matches[1]);
+					//yeah, suppressing error, a syntax error is catched below
+					$params=eval('return ['.$matches[1].'];');
 					//Utils::var_dump($params);
-					foreach($params as &$param){
-						$param=trim($param,"'");
+					if($params===false){
+						die("
+							Something wrong with partial view parameters.<br>
+							Processed file: {$curFile}
+							");
 					}
-					//$compiled=$this->compile($this->loadFile($params[0],$data), $data);
-					//return $compiled;
 					return $commandCallback($params,$data);
 				},
 				$string
@@ -49,9 +54,10 @@ class ViewCompiler{
 	}
 	
 	public function loadFile($file,$data){
+		$this->currentFile=$file;
 		extract($data);
 		ob_start();
-		include($file);
+		include(Utils::correctPath($file));
 		// Return the file data if requested
 		$buffer = ob_get_contents();
 		ob_end_clean();
@@ -59,9 +65,32 @@ class ViewCompiler{
 		//ob_end_flush();
 		//return $this;		
 	}
-	
-}
 
+	/**
+	 * Used internally, when array parameter is used, for example @include('file',['variable'=>'value'])
+	 * @param type $str
+	 * @return type
+	 */
+	protected function getArrayParams($str){
+		$str=trim($str,'[]');
+		$params = preg_split("~,(?=([^']*'[^']*')*[^']*$)~",$str);
+		$ret=[];
+		foreach($params as &$p){
+			//$nameAndVal=str_replace();
+			$nameAndVal = preg_split("~=\>(?=([^']*'[^']*')*[^']*$)~",$p);
+			$name=$nameAndVal[0];
+			$val=trim($nameAndVal[1],"'");
+			/*echo '<br>next param:<br>';
+			echo '<pre>';
+			echo "name: {$name} val: {$val}<br>";
+			echo '</pre>';
+			 */
+			$ret[]=[$name=>$val];
+		}
+		//var_dump($params);
+		return $ret;
+	}
+}
 class ViewBase{
 	protected $file='';
 	protected $loaded='';

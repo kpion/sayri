@@ -9,7 +9,7 @@ class HomepageController extends \app\core\FrontController{
 	
 	public function actionIndex(){
 		//var_dump('ala','iza');
-		$this->mhomepage->test();
+		//$this->mhomepage->test();
 		return View::get('homepage/index');
 	}
 	

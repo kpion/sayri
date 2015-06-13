@@ -16,14 +16,15 @@ header{
 	margin-bottom:10px;
 }
 
+/*
 footer{
 	border-top:1px solid #ccc;
 	margin-top:50px;
 	padding-top:10px;
 	position:fixed;
 	bottom:20px;
-	
-}
+	}
+	*/
 
 
 .message,.error{

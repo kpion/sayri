@@ -6,4 +6,9 @@
 <p>
 	This method loads an app\views\homepage\index.php view.
 </p>
+
+<div>
+	<p>Partial view test:</p>
+	@include ('homepage\partialTest',['message'=>'Welcome to Foundation framework.']);
+</div>
 @include('templates\footer');
