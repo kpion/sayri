@@ -30,4 +30,9 @@ class Utils{
 		echo '</pre>';
 	}	
 	
+	public static function correctPath($path){
+		$ret=str_replace('\\',DIRECTORY_SEPARATOR,$path);
+		$ret=str_replace('/',DIRECTORY_SEPARATOR,$ret);
+		return $ret;
+	}
 }

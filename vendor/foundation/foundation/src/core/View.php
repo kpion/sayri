@@ -1,28 +1,85 @@
 <?php
 namespace foundation;
+/**
+ * 
+ */
+class ViewCompiler{
+	protected $commands=[];
+	
+	public function __construct(){
+		//registering standard commands
+		$this->registerCommand('include', function($params,$data){
+			//var_dump($params);
+			$file=$params[0];
+			return $this->compile($this->loadFile(App::$appDir.'views/'.$file.'.php',$data), $data);
+		});
+	}
+	
+	public function compile($string,$data=[]){
+		//@include command
+		//$includePattern='~@include\\s?\\(\\s?[\'"](.*?)[\'"]\\s?\\);?~';
+		foreach($this->commands as $commandInfo){
+			$command=$commandInfo['command'];
+			$commandCallback=$commandInfo['callback'];
+			$commandPattern="~@{$command}\s?\((,?.*?)\);?~";
+			$result = preg_replace_callback(
+				$commandPattern,
+				function ($matches) use ($command,$commandCallback,$data) {
+					//echo 'match:';var_dump($matches);echo '<br>';
+					//return strtolower($matches[1]);
+					//$file=$matches[1];
+					$params = preg_split("~,(?=([^']*'[^']*')*[^']*$)~",$matches[1]);
+					//Utils::var_dump($params);
+					foreach($params as &$param){
+						$param=trim($param,"'");
+					}
+					//$compiled=$this->compile($this->loadFile($params[0],$data), $data);
+					//return $compiled;
+					return $commandCallback($params,$data);
+				},
+				$string
+			);
+		}
+		return $result;
+	}
+	
+	public function registerCommand($command,$callback){
+		$this->commands[]=['command'=>$command,'callback'=>$callback];
+		return $this;
+	}
+	
+	public function loadFile($file,$data){
+		extract($data);
+		ob_start();
+		include($file);
+		// Return the file data if requested
+		$buffer = ob_get_contents();
+		ob_end_clean();
+		return $buffer;
+		//ob_end_flush();
+		//return $this;		
+	}
+	
+}
+
 class ViewBase{
 	protected $file='';
 	protected $loaded='';
 	protected $data=[];
+	protected $compiler=null;
+	
+	public function __construct(ViewCompiler $compiler=null){
+		if(empty($compiler))
+			$compiler=new ViewCompiler;
+		$this->compiler=$compiler;
+	}
+	
 	public function compile ($string,$data=[]){
-		//@include command
-		$includePattern='~@include\\s?\\(\\s?[\'"](.*?)[\'"]\\s?\\);?~';
-		$result = preg_replace_callback(
-				$includePattern,
-				function ($matches) use ($data) {
-					//echo 'match:';var_dump($matches);echo '<br>';
-					//return strtolower($matches[1]);
-					$file=$matches[1];
-					$view=new static();
-					return $view->get($file,$data)->getAsString();
-				},
-				$string
-			);
-		return $result;
+		return $this->compiler->compile($string,$data);
 	}
 	
 	public function get($file,$data=[]){
-		$this->file=$file;
+		$this->file=Utils::correctPath($file);
 		$this->data=array_merge($this->data,$data);
 		return $this;
 		/*
@@ -39,20 +96,12 @@ class ViewBase{
 		 */
 	}
 	protected function loadFile(){
-		extract($this->data);
-		ob_start();
-		include(App::$appDir.'views/'.$this->file.'.php');
-		// Return the file data if requested
-		$buffer = ob_get_contents();
-		ob_end_clean();
-		$this->loaded=$buffer;
-		//ob_end_flush();
-		return $this;		
+		$this->loaded=$this->compiler->loadFile(App::$appDir.'views/'.$this->file.'.php',$this->data);
+		return $this;
 	}
 	
 	public function getAsString(){
-		$this->loadFile();
-		return $this->compile($this->loaded,$this->data);
+		return $this->loadFile()->compile($this->loaded,$this->data);
 	}
 	
 	public function with($data,$val=null){
@@ -103,7 +152,7 @@ class ViewBase{
 
 }
 
-class View{
+class View {
 	static protected $viewBase=null;
 	
 	static function getViewBase(){

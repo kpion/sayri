@@ -77,6 +77,7 @@ class App{
 		}
 	}
 	
+	
 	public static function tests(){
 		return;
 		$user=new Users();
