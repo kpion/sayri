@@ -1,4 +1,4 @@
-# Foundation
+# Sayri
 
 A dead simple PHP MVC Framework. In progress.
 
@@ -60,7 +60,7 @@ which looks like this:
     
     <div>
     	<p>Partial view test:</p>
-    	@include ('admin\homepage\partialTest',['message'=>'Welcome to Foundation framework.']);
+    	@include ('admin\homepage\partialTest',['message'=>'Welcome to Sayri framework.']);
     </div>
     
     @include ('templates\admin\footer')
@@ -75,5 +75,5 @@ As you can see we include a header, footer and a partialTest view - with one par
     </div>
 
 # More information
-[Foundation :: the PHP Framework](http://konradp.com/projects/foundation "PHP Framework")
+[Sayri :: the PHP Framework](http://konradp.com/projects/sayri "PHP Framework")
 
