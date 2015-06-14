@@ -10,12 +10,13 @@ class Config{
 			return;
 		};
 		self::$initialized=true;
-		$autoload=require_once(App::$appDir.'config/Autoload.php');	
+		/*
+		$autoload=['config','db','panels'];
 		foreach($autoload as $al){
 			$alUcFirst=ucfirst($al);
 			self::$configs[$al]=require_once(App::$appDir."config/{$alUcFirst}.php");	
 		}
-		
+		*/
 	}	
 	/**
 	 * returns ONE key from given config file ('config' file by default')
@@ -25,7 +26,8 @@ class Config{
 	 */
 	public static function get($key,$file='config'){
 		self::initialize();
-		return self::$configs[$file][$key];
+		//return self::$configs[$file][$key];
+		return static::getFile($file)[$key];
 	}
 	/**
 	 * returns the entire config array from given config file
@@ -33,6 +35,10 @@ class Config{
 	 */
 	public static function getFile($file){
 		self::initialize();
+		if(empty(self::$configs[$file])){
+			$fileUcFirst=ucfirst($file);
+			self::$configs[$file]=require_once(App::$appDir."config/{$fileUcFirst}.php");
+		};
 		return self::$configs[$file];
 	}
 }

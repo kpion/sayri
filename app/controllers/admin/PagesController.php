@@ -1,6 +1,6 @@
 <?php
 
-class AdminPagesController extends \app\core\AdminController{
+class PagesController extends \app\core\AdminController{
 	public function actionIndex(){
 		return View::get('admin/pages/adminIndex');
 	}

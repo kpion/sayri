@@ -1,6 +1,6 @@
 <?php
 
-class AdminModController extends \app\core\AdminController{
+class ModController extends \app\core\AdminController{
 	
 	public function __construct(){
 		$this->allow('moderator');

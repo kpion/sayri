@@ -29,15 +29,23 @@ class App{
 		self::$appDir=$projectDir.'app/';
 		self::$frameworkDir=$projectDir.'vendor/sayri/sayri/src/';
 		self::$classAliases=require_once(self::$frameworkDir.'config/ClassAliases.php');		
+		
 		//$frameworkPath='vendor/sayri/sayri/';
-		foreach(
+		require_once(self::$frameworkDir.'core/Autoload.php');
+		/*foreach(
 				['core/Autoload','core/ArrayUtils','core/Db','core/Session','core/Auth','core/Users',
-				'core/Config','core/Input','core/Url','core/Request','core/ViewCompiler','core/View','core/Utils','core/Helpers'
+				'core/Config','core/Input','core/Url','core/Route','core/Request','core/ViewCompiler','core/View','core/Utils','core/Helpers'
 			] as $frameworkFile){
 			require_once(self::$frameworkDir.$frameworkFile.'.php');
 		}
+		*/
 		new \sayri\Autoload();
-		
+		//class aliases, so we can simply use "App" instead of sayri\App
+		foreach(self::$classAliases as $class=>$alias){
+			//class_alias('sayri\Url','Url');
+			class_alias($alias,$class);
+		}				
+		require_once(self::$appDir.'config/Routes.php');
 		//testy:
 		//$x=new sayri\Tests();
 		//
@@ -48,17 +56,14 @@ class App{
 		$dbConfig=\sayri\Db::getConfig('default');
 		//var_dump($dbConfig);
 		self::$db=new \sayri\Db($dbConfig['dsn'],$dbConfig['user'],$dbConfig['password']);
-		//class aliases, so we can simply use "App" instead of sayri\App
-		foreach(self::$classAliases as $class=>$alias){
-			//class_alias('sayri\Url','Url');
-			class_alias($alias,$class);
-		}
+
 		//tests
 		self::tests();
 		//
 		//load the controller
 		$controllerClass=Request::getController();
-		$controllerFile=self::$appDir.'controllers/'.$controllerClass.'.php';
+		//$controllerFile=self::$appDir.'controllers/'.$controllerClass.'.php';
+		$controllerFile=Request::getControllerPath();
 		if(file_exists($controllerFile)){
 			require_once($controllerFile);
 			$controller=new $controllerClass();

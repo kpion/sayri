@@ -1,6 +1,6 @@
 <?php
 
-class AdminHomepageController extends \app\core\AdminController{
+class HomepageController extends \app\core\AdminController{
 	
 	public function actionIndex(){
 		return View::get('admin/homepage/homepage');

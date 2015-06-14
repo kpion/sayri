@@ -9,6 +9,7 @@ $classAliases=[
 	'Input'=>'sayri\Input',
 	//'Model'=>'sayri\Model',
 	'Request'=>'sayri\Request',
+	'Route'=>'sayri\Route',
 	'Session'=>'sayri\Session',
 	'Tests'=>'sayri\Tests',
 	'Url'=>'sayri\Url',
