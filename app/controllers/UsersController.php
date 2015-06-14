@@ -17,7 +17,10 @@ class UsersController extends app\core\FrontController{
 			]))
 			{
 				//$this->message('Logowanie powiodło się');
-				Url::redirect('homepage/index');
+				if(Auth::cur()->is('admin'))
+					Url::redirect('admin');
+				else
+					Url::redirect('homepage/index');
 			}else{
 				$this->error('Nieprawidłowy login lub hasło');
 			};

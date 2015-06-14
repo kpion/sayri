@@ -16,7 +16,7 @@ class BaseController{
 		$this->setAccess();
 		if(!$this->hasAccess()){
 			//$this->error('no access',true);
-			Url::redirect('');
+			Url::redirect('users/login');
 			die();
 		}
 	}

@@ -32,7 +32,7 @@ class App{
 		//$frameworkPath='vendor/sayri/sayri/';
 		foreach(
 				['core/Autoload','core/ArrayUtils','core/Db','core/Session','core/Auth','core/Users',
-				'core/Config','core/Input','core/Url','core/Request','core/View','core/Utils','core/Helpers'
+				'core/Config','core/Input','core/Url','core/Request','core/ViewCompiler','core/View','core/Utils','core/Helpers'
 			] as $frameworkFile){
 			require_once(self::$frameworkDir.$frameworkFile.'.php');
 		}
