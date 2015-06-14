@@ -6,7 +6,7 @@ namespace app\core;
  * and open the template in the editor.
  */
 
-class Model extends \foundation\Model{
+class Model extends \sayri\Model{
 	public function __construct(){
 		parent::__construct();
 	}

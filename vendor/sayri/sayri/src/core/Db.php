@@ -1,5 +1,5 @@
 <?php
-namespace foundation;
+namespace sayri;
 use \PDO;
 class Db{
 	public $pdo=null;

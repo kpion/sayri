@@ -1,5 +1,5 @@
 <?php
-namespace foundation;
+namespace sayri;
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,7 +9,7 @@ namespace foundation;
 class Auth{
 	/**
 	 *
-	 * @var foundation\Users
+	 * @var sayri\Users
 	 */
 	private static $cur=false;
 
@@ -80,7 +80,7 @@ class Auth{
 	
 	
 	public static function add($login,$password,$data=[]){
-		if(FOUNDATION_ENV=='dev'){
+		if(SAYRI_ENV=='dev'){
 			$exists=App::$db->get('users',['login'=>$login])->resultOne();
 			if($exists)
 				throw new \Exception("User already exists");

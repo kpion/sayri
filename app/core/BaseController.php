@@ -6,7 +6,7 @@ namespace app\core;
  * and open the template in the editor.
  */
 
-class BaseController extends \foundation\BaseController{
+class BaseController extends \sayri\BaseController{
 	public function __construct(){
 		parent::__construct();
 	}

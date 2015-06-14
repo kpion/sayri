@@ -1,5 +1,5 @@
 <?php
-namespace foundation;
+namespace sayri;
 class ArrayUtils{
 	/**
 	 * Will return only specified keys from $sourceArray

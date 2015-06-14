@@ -1,5 +1,5 @@
 <?php
-namespace foundation;
+namespace sayri;
 
 class Input{
 	private static $get=[];

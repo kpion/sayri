@@ -1,5 +1,5 @@
 <?php
-namespace foundation;
+namespace sayri;
 /**
  * @todo: In the future store the session in database
  */

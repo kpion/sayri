@@ -1,5 +1,5 @@
 <?php
-namespace foundation;
+namespace sayri;
 /**
  * All about URL request - processes config/Routes.php file to resolve controller, method and parameters
  */
@@ -49,7 +49,7 @@ class Request{
 				$val=$val();
 			$key = str_replace(':any', '.+', str_replace(':num', '[0-9]+', $key));
 			/*
-			if(is_a($val,'foundation\ViewBase')){
+			if(is_a($val,'sayri\ViewBase')){
 				echo $val;
 				continue;
 			}*/

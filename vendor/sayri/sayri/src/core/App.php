@@ -1,12 +1,12 @@
 <?php
-namespace foundation;
+namespace sayri;
 /**
  * Wyjątkowo nie w namespace app by można było po prostu napisać App::coś_tam
  */
 class App{
 	/**
 	 *
-	 * @var \foundation\Db 
+	 * @var \sayri\Db 
 	 */
 	static public $db;
 	static public $projectDir;
@@ -27,30 +27,30 @@ class App{
 		$projectDir=str_replace('\\','/',$projectDir);
 		self::$projectDir=$projectDir;
 		self::$appDir=$projectDir.'app/';
-		self::$frameworkDir=$projectDir.'vendor/foundation/foundation/src/';
+		self::$frameworkDir=$projectDir.'vendor/sayri/sayri/src/';
 		self::$classAliases=require_once(self::$frameworkDir.'config/ClassAliases.php');		
-		//$frameworkPath='vendor/foundation/foundation/';
+		//$frameworkPath='vendor/sayri/sayri/';
 		foreach(
 				['core/Autoload','core/ArrayUtils','core/Db','core/Session','core/Auth','core/Users',
 				'core/Config','core/Input','core/Url','core/Request','core/View','core/Utils','core/Helpers'
 			] as $frameworkFile){
 			require_once(self::$frameworkDir.$frameworkFile.'.php');
 		}
-		new \foundation\Autoload();
+		new \sayri\Autoload();
 		
 		//testy:
-		//$x=new foundation\Tests();
+		//$x=new sayri\Tests();
 		//
 		//App::$input=new \system\Input();
 		//echo App::$input->get('blah');
 		//require_once($appPath.'core/Controller.php');
 		//database
-		$dbConfig=\foundation\Db::getConfig('default');
+		$dbConfig=\sayri\Db::getConfig('default');
 		//var_dump($dbConfig);
-		self::$db=new \foundation\Db($dbConfig['dsn'],$dbConfig['user'],$dbConfig['password']);
-		//class aliases, so we can simply use "App" instead of foundation\App
+		self::$db=new \sayri\Db($dbConfig['dsn'],$dbConfig['user'],$dbConfig['password']);
+		//class aliases, so we can simply use "App" instead of sayri\App
 		foreach(self::$classAliases as $class=>$alias){
-			//class_alias('foundation\Url','Url');
+			//class_alias('sayri\Url','Url');
 			class_alias($alias,$class);
 		}
 		//tests
@@ -70,7 +70,7 @@ class App{
 
 		
 		$result=call_user_func_array(array($controller, $controllerMethod), Request::getParameters());		
-		if(is_a($result,'foundation\ViewBase'))
+		if(is_a($result,'sayri\ViewBase'))
 			echo $result->getAsString();
 		elseif (is_string($result)){
 			echo $result;

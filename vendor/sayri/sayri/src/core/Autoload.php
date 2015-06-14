@@ -1,5 +1,5 @@
 <?php
-namespace foundation;
+namespace sayri;
 class Autoload{
 	private $namespaceAliases=[];
 	function __construct(){
@@ -20,7 +20,7 @@ class Autoload{
 		$path=str_replace('/', DIRECTORY_SEPARATOR,$path);
 		$path.='.php';
 		if(strpos($path,'system/')===0){
-			$path=str_replace('system/','vendor/foundation/foundation/core/',$path);
+			$path=str_replace('system/','vendor/sayri/sayri/core/',$path);
 		};
 		//var_dump($this->namespaceAliases);echo '<br>';
 		$namespaceAliasFound=false;
@@ -61,7 +61,7 @@ function __autoload($class) {
 	//echo '<br>'.$class.'<br>';
 	$path=str_replace('\\', '/',$class.'.php');
 	if(strpos($path,'system/')===0){
-		$path=str_replace('system/','vendor/foundation/core/',$path);
+		$path=str_replace('system/','vendor/sayri/core/',$path);
 	};
 	if(0)
 	foreach($namespaceAliases as $namespaceAlias){

@@ -3,7 +3,7 @@
 
 <div>
 	<p>Partial view test:</p>
-	@include ('admin\homepage\partialTest',['message'=>'Welcome to Foundation framework.']);
+	@include ('admin\homepage\partialTest',['message'=>'Welcome to the Sayri framework.']);
 </div>
 
 @include ('templates\admin\footer')

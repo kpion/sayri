@@ -1,5 +1,5 @@
 <?php
-namespace foundation;
+namespace sayri;
 
 /**
  * Various utility functions

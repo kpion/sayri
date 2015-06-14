@@ -1,5 +1,5 @@
 <?php
-namespace foundation;
+namespace sayri;
 class Users implements \ArrayAccess{
 	//filled after calling ->load, this is only one user
 	public $loaded=[];
