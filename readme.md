@@ -1,6 +1,26 @@
 # Sayri
 
-A dead simple PHP MVC Framework. In progress.
+DON'T USE IT IN CURRENT VERSION :) It will soon be rewritten. 
+
+A dead simple PHP MVC Framework.
+
+It was created for people who don't understand Dependendcy Injection Containers and for some reason don't want to learn it. Also not PS4 autoload ready.
+
+Only for very very simple small projects.
+
+For everything else, please take a look at one of the following:
+
+Micro frameworks: 
+
+http://www.slimframework.com/
+
+Full stack frameworks:
+
+https://github.com/symfony/symfony
+
+https://github.com/laravel/laravel
+
+---
 
 # Features
   - MVC architecture
@@ -11,7 +31,7 @@ A dead simple PHP MVC Framework. In progress.
 The project will soon be composer-ready, right now however you can [download it](https://github.com/konradpapala/foundation/releases/ "adf")
 
 # Example
-Foundation comes with a few example controllers and views. For example Homepage is served by app\controllers\HomepageController.php
+Sayri comes with a few example controllers and views. For example Homepage is served by app\controllers\HomepageController.php
 
 And admin homepage is served by app\controllers\AdminHomepageController.php - let's look at it.
 
@@ -74,6 +94,5 @@ As you can see we include a header, footer and a partialTest view - with one par
         ?>
     </div>
 
-# More information
-[Sayri :: the PHP Framework](http://konradp.com/projects/sayri "PHP Framework")
+
 
